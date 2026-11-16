@@ -56,17 +56,18 @@ try:
             key = sys.stdin.read(1).lower()
 
             if key in key_map:
-                idx = key_map[key]
+                for idx in key_map[key]:
 
-                # Toggle state
-                relay_state[idx] = not relay_state[idx]
 
-                if relay_state[idx]:
-                    relays[idx].on()
-                    print(f"Relay {idx} ON")
-                else:
-                    relays[idx].off()
-                    print(f"Relay {idx} OFF")
+                    # Toggle state
+                    relay_state[idx] = not relay_state[idx]
+
+                    if relay_state[idx]:
+                        relays[idx].on()
+                        print(f"Relay {idx} ON")
+                    else:
+                        relays[idx].off()
+                        print(f"Relay {idx} OFF")
 
 finally:
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
